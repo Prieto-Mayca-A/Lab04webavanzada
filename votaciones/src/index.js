@@ -1,17 +1,64 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App = () => {
+  // save clicks of each button to its own state
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  const data =[
+    {
+      titulo: "give feedback",
+      titulo2: "statistics"
+    }
+  ]
+
+  const [ contador, setcontador ] = useState({
+    Good: 0,
+    Neutral: 0,
+    Bad: 0,
+  })
+
+  const handleclickGood = () => {
+    setcontador({
+      ...contador,
+      Good: contador.Good + 1,
+    })
+  }
+  const handleclickNeutral = () => {
+    setcontador({
+      ...contador,
+      Neutral: contador.Neutral + 1,
+    })
+  }
+  const handleclickBad = () => {
+    setcontador({
+      ...contador,
+      Bad: contador.Bad + 1,
+    })
+  }
+  const Total =[
+    {
+      tota: contador.Bad + contador.Good + contador.Neutral,
+    }
+  ]
+  const Porcentaje =[
+    {
+      porcentaje: contador.Good /100
+    }
+  ]
+  return(
+    <div>
+      <p><h1>{data[0].titulo}</h1></p>
+      <button onClick={handleclickGood}>Good!!</button>
+      <button onClick={handleclickNeutral}>Neutral!!</button>
+      <button onClick={handleclickBad}>Bad!!</button>
+      <p><h2>{data[0].titulo2}</h2></p>
+      <p>Neutral {contador.Neutral}</p>
+      <p>Good {contador.Good}</p>
+      <p>Bad  {contador.Bad}</p>
+      <p>All  {Total[0].tota}</p>
+      <p>Positive  {Porcentaje[0].porcentaje}</p>
+    </div>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
